@@ -1,7 +1,10 @@
 package guru.springframework.spring5webapp.bootstrap;
 
+
+import guru.springframework.spring5webapp.domain.Address;
 import guru.springframework.spring5webapp.domain.Author;
 import guru.springframework.spring5webapp.domain.Book;
+import guru.springframework.spring5webapp.repositories.AddressRepository;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
 import guru.springframework.spring5webapp.repositories.BookRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -11,10 +14,12 @@ import org.springframework.stereotype.Component;
 public class BootStrapData implements CommandLineRunner {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final AddressRepository addressRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, AddressRepository addressRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -40,6 +45,12 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Started in BootStrap");
         System.out.println("Number of Books " + bookRepository.count());
         System.out.println("Number of Authors " + authorRepository.count());
+
+        Address address = new Address("Sarjapur Attibele Road", "Bangalore", "Karnataka", "562107");
+
+        addressRepository.save(address);
+        System.out.println("Number of Address " + addressRepository.count());
+
 
     }
 }
